@@ -15,36 +15,60 @@ def divide(x, y):
 def get_number(prompt):
     while True:
         try:
-            number = float(input(prompt))
-            return number
+            number = input(prompt)
+            if number.lower() == "ex":
+                print("Exiting the program.")
+                exit(0)
+            return float(number)
         except ValueError:
             print("Помилка: Введіть правильне число.")
 
 def calculator():
-    print("Калькулятор. Введіть 'вихід' для завершення програми.")
+    print("Калькулятор. Введіть 'ex' для завершення програми.")
     
-    while True:
-        num1 = get_number("Введіть перше число (або 'вихід' для завершення): ")
-        operation = input("Введіть операцію (+, -, *, /): ")
+    result = get_number("Введіть перше число: ")
 
-        num2 = get_number("Введіть друге число: ")
+    while True:
+        print("\nОберіть операцію:\n"
+              "'+' — додавання, '-' — віднімання, '*' — множення, '/' — ділення\n"
+              "'!-' — віднімання (з перестановкою), '!/' — ділення (з перестановкою)\n"
+              "'^' — піднесення до степеня, '!^' — піднесення до степеня (з перестановкою)\n"
+              "'ex' — для виходу з програми")
+
+        operation = input("Введіть операцію: ").lower()
+        
+        if operation == 'ex':
+            print(f"Ваш поточний результат = {result}")
+            print("Exiting the program.")
+            exit(0)
+
+        num = get_number("Введіть наступне число: ")
 
         try:
             if operation == '+':
-                result = add(num1, num2)
+                result = add(result, num)
             elif operation == '-':
-                result = subtract(num1, num2)
+                result = subtract(result, num)
+            elif operation == '!-':
+                result = subtract(num, result)
             elif operation == '*':
-                result = multiply(num1, num2)
+                result = multiply(result, num)
             elif operation == '/':
-                result = divide(num1, num2)
+                result = divide(result, num)
+            elif operation == '!/':
+                result = divide(num, result)
+            elif operation == '^':
+                result **= num
+            elif operation == '!^':
+                result = num ** result
             else:
                 print("Помилка: Неправильна операція.")
                 continue
 
-            print(f"Результат: {result}")
+            print(f"\nВаш поточний результат = {result}")
 
         except ValueError as e:
             print(e)
 
 calculator()
+
