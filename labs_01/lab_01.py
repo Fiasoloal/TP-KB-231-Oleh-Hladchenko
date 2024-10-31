@@ -58,20 +58,43 @@ def updateElement():
     if updatePosition == -1:
         print("Student not found")
     else:
-# Дозволяє користувачу оновлювати кожне поле або залишити його без змін
+        # Дозволяє користувачу оновлювати кожне поле або залишити його без змін
+        new_name = input(f"Please enter new name (current: {list[updatePosition]['name']}): ") or list[updatePosition]["name"]
         new_phone = input(f"Please enter new phone (current: {list[updatePosition]['phone']}): ") or list[updatePosition]["phone"]
         new_email = input(f"Please enter new email (current: {list[updatePosition]['email']}): ") or list[updatePosition]["email"]
         new_address = input(f"Please enter new address (current: {list[updatePosition]['address']}): ") or list[updatePosition]["address"]
-        
-# Оновлення інформації про студента
-        list[updatePosition]["phone"] = new_phone
-        list[updatePosition]["email"] = new_email
-        list[updatePosition]["address"] = new_address
-        
-        print(f"Student {name}'s details have been updated.")
-# Пересортований список
-        list.sort(key=lambda x: x["name"])
+
+        # Перевірка, чи змінилося ім'я
+        if new_name != list[updatePosition]["name"]:
+            # Видаляємо старий запис
+            old_item = list[updatePosition]
+            del list[updatePosition]
+
+            # Створюємо новий запис і вставляємо його в потрібну позицію
+            newItem = {
+                "name": new_name,
+                "phone": new_phone,
+                "email": new_email,
+                "address": new_address
+            }
+
+            # Знаходимо позицію для вставки нового запису
+            insertPosition = 0
+            for item in list:
+                if new_name > item["name"]:
+                    insertPosition += 1
+                else:
+                    break
+            list.insert(insertPosition, newItem)
+            print(f"Student {old_item['name']}'s details have been updated to {new_name}.")
+        else:
+            # Якщо ім'я не змінилося, оновлюємо інші дані на місці
+            list[updatePosition]["phone"] = new_phone
+            list[updatePosition]["email"] = new_email
+            list[updatePosition]["address"] = new_address
+            print(f"Student {name}'s details have been updated.")
     return
+
 # Меню
 def main():
     while True:
