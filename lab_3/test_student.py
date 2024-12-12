@@ -8,38 +8,38 @@ import sys
 
 class TestStudent(unittest.TestCase):
     def test_student_creation(self):
-        student = Student("John Doe", "1234567890", "johndoe@example.com", "123 Main St")
+        student = Student("John Doe", "1234567890", "jo@example.com", "rty")
         self.assertEqual(student.name, "John Doe")
         self.assertEqual(student.phone, "1234567890")
-        self.assertEqual(student.email, "johndoe@example.com")
-        self.assertEqual(student.address, "123 Main St")
+        self.assertEqual(student.email, "jo@example.com")
+        self.assertEqual(student.address, "rty")
 
     def test_student_update(self):
-        student = Student("John Doe", "1234567890", "johndoe@example.com", "123 Main St")
-        student.update(name="Jane Doe", phone="0987654321", email="janedoe@example.com", address="456 Main St")
+        student = Student("John Doe", "1234567890", "jo@example.com", "rty")
+        student.update(name="Jane Doe", phone="0987654321", email="jane@example.com", address="maip")
         self.assertEqual(student.name, "Jane Doe")
         self.assertEqual(student.phone, "0987654321")
-        self.assertEqual(student.email, "janedoe@example.com")
-        self.assertEqual(student.address, "456 Main St")
+        self.assertEqual(student.email, "jane@example.com")
+        self.assertEqual(student.address, "maip")
 
 class TestStudentList(unittest.TestCase):
     def setUp(self):
         self.student_list = StudentList()
 
     def test_add_student(self):
-        student = Student("John Doe", "1234567890", "johndoe@example.com", "123 Main St")
+        student = Student("John Doe", "1234567890", "jo@example.com", "rty")
         self.student_list.add_student(student)
         self.assertEqual(len(self.student_list.students), 1)
         self.assertEqual(self.student_list.students[0].name, "John Doe")
 
     def test_delete_student(self):
-        student = Student("John Doe", "1234567890", "johndoe@example.com", "123 Main St")
+        student = Student("John Doe", "1234567890", "jo@example.com", "rty")
         self.student_list.add_student(student)
         self.student_list.delete_student("John Doe")
         self.assertEqual(len(self.student_list.students), 0)
 
     def test_update_student(self):
-        student = Student("John Doe", "1234567890", "johndoe@example.com", "123 Main St")
+        student = Student("John Doe", "1234567890", "jo@example.com", "rty")
         self.student_list.add_student(student)
         self.student_list.update_student("John Doe", new_name="Jane Doe", new_phone="0987654321")
         updated_student = self.student_list.find_student("Jane Doe")
@@ -48,7 +48,7 @@ class TestStudentList(unittest.TestCase):
         self.assertEqual(updated_student.phone, "0987654321")
 
     def test_print_all(self):
-        student = Student("John Doe", "1234567890", "johndoe@example.com", "123 Main St")
+        student = Student("John Doe", "1234567890", "jo@example.com", "rty")
         self.student_list.add_student(student)
         captured_output = StringIO()
         sys.stdout = captured_output
@@ -60,7 +60,7 @@ class TestFileUtils(unittest.TestCase):
     def setUp(self):
         self.test_file = "test_students.csv"
         self.student_list = StudentList()
-        self.student_list.add_student(Student("John Doe", "1234567890", "johndoe@example.com", "123 Main St"))
+        self.student_list.add_student(Student("John Doe", "1234567890", "jo@example.com", "rty"))
 
     def tearDown(self):
         if os.path.exists(self.test_file):
